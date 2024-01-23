@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Interactive CV</title>
+    <style>
+        .certifications-details,
+        .contact-details {
+            display: none;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(to bottom, #1e6072, #2a5298); /* Blue and teal gradient background */
+        }
+
+        header {
+            background-color: #0f4c75; /* Darker blue for the header */
+            color: white;
+            text-align: center;
+            padding: 1em;
+        }
+
+        section {
+            margin: 20px;
+            padding: 20px;
+            background-color: #dbe2ef; /* Light blue background for sections */
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            display: flex; /* Use flex to create a horizontal layout */
+            align-items: center; /* Align items vertically in the center */
+            justify-content: space-between; /* Distribute space between items */
+            flex-wrap: wrap; /* Allow items to wrap to the next line */
+        }
+
+        h1 {
+            font-size: 40px;
+            font-weight: bold;
+            margin-bottom: 10px;
+            color: #2a5298; /* Dark teal color for the name */
+        }
+
+        h2 {
+            color: #333;
+        }
+
+        p {
+            margin: 0;
+        }
+
+        img.profile {
+            width: 500px; /* Set the width to 500px */
+            height: auto;
+            border-radius: 50%;
+            margin-left: 20px; /* Adjust the margin as needed */
+        }
+
+        .designation {
+            font-size: 20px;
+            color: #4d648d; /* Darker teal color for the designation */
+            margin-bottom: 10px; /* Add margin bottom to create space between name, designation, and content */
+        }
+
+        .interactive-link {
+            color: #007BFF;
+            cursor: pointer;
+            text-decoration: underline;
+            margin-right: 10px;
+        }
+
+        #description-container {
+            text-align: justify;
+            margin-left: 20px; /* Adjust the margin as needed */
+            color: black; /* Set the text color to black */
+            flex: 1; /* Allow the description container to take remaining space */
+        }
+
+        #education {
+            display: none; /* Initially hide the education section */
+        }
+
+        #education h2 {
+            margin-bottom: 10px;
+        }
+
+        #education .education-box {
+            border: 2px solid #2a5298;
+            border-radius: 8px;
+            padding: 10px;
+            margin-top: 10px;
+        }
+
+        #education ul {
+            list-style: none; /* Remove default list styles */
+            padding: 0;
+            margin: 0;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+        }
+
+        #education li {
+            width: calc(33.33% - 10px); /* Adjust the width as needed */
+            margin-bottom: 10px;
+            color: black; /* Set the text color to black */
+            position: relative;
+            padding-left: 20px;
+        }
+
+        #education li::before {
+            content: '\2022'; /* Unicode character for a bullet point */
+            color: black; /* Set the bullet point color to black */
+            font-size: 1.5em;
+            position: absolute;
+            left: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            margin-right: 5px;
+        }
+
+        #education li p {
+            margin: 5px 0;
+        }
+
+        #buttons-container {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        #home-button {
+            cursor: pointer;
+            color: #007BFF;
+            text-decoration: underline;
+            margin-right: 10px;
+        }
+
+        #background-photo {
+            background: url('C:\resum\photo\educ.jpg') no-repeat center center fixed;
+            background-size: cover;
+            height: 500px; /* Set the height as needed */
+        }
+
+        #skills {
+            display: none; /* Initially hide the skills section */
+        }
+
+        #skills h2 {
+            margin-bottom: 10px;
+        }
+
+        .personal-skills,
+        .software-skills {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            margin-top: 20px;
+        }
+
+        .oval-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: #89aacd; /* Bright green color, you can change it to any color you prefer */
+            border-radius: 50%;
+            width: 150px; /* Adjust the width as needed */
+            height: 150px; /* Adjust the height as needed */
+            margin: 10px;
+        }
+
+        .skill {
+            font-size: 18px;
+            color: white; /* Text color in the oval shape */
+            text-align: center; /* Center-align the text */
+        }
+        
+        .certification-card {
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            margin: 10px 0;
+        }
+        
+        .certification-card h4 {
+            color: #2a5298; /* Dark teal color for the title */
+        }
+        
+        .certification-card p {
+            color: #333;
+            margin: 10px 0;
+        }
+        
+        #buttons-container {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        
+        
+    </style>
+   
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
+</head>
+<body>
+    <div class="header">
+        <div id="buttons-container">
+            <button class="interactive-link" onclick="toggleSection('about')">Home</button>
+            <button class="interactive-link" onclick="toggleSection('education')">Education</button>
+            <button class="interactive-link" onclick="toggleSection('skills')">Skills</button>
+            <button class="interactive-link" onclick="toggleSection('certifications')">Certifications</button>
+            <button class="interactive-link" onclick="toggleSection('contact')">Contact</button>
+        </div>
+    </div>
+    
+    <section id="about">
+        <div>
+            <img src="photo/profile.jpg" class="profile">
+        </div>
+        <div id="description-container">
+            <h1>Prawal Parajuli</h1>
+            <p class="designation">Geomatics Engineer</p>
+            <p>As a current Bachelors in Geomatics Engineering student at Kathmandu University, I have gained comprehensive expertise in both field and office aspects of surveying.
+               My proficiency includes employing techniques such as leveling, traverse, tacheometry, route survey, hydropower survey, bridge survey, and aligning new routes.
+               I am adept at utilizing equipment like the Total Station, Plane table, DGPS, and UAV for efficient field surveys. In the realm of office work, I have honed skills 
+               in the digital preparation of topographic maps, encompassing both paper and digital formats. My proficiency extends to tasks like digitizing, creating L-sections, and 
+               cross-sections. Moreover, I am well-versed in utilizing software tools such as ARCGIS, QGIS, ENVI, AutoCAD, Trimble Business Center, and converting data from static to Rinex format.
+               This diverse skill set equips me to contribute effectively to geomatics engineering projects, combining theoretical knowledge with practical application.</p>
+        </div>
+    </section>
+
+    <section id="education">
+        <h2>Education</h2>
+        <div class="education-box">
+            <ul>
+                <li>
+                    <p>Qualification: SEE</p>
+                    <p>Institution: Janapremi world School</p>
+                    <p>Year: 2073</p>
+                </li>
+                <li>
+                    <p>Qualification: High School Degree</p>
+                    <p>Institution: Janapremi World School</p>
+                    <p>Year: 2075</p>
+                </li>
+                <li>
+                    <p>Qualification: Bachelors in Geomatics Engineering</p>
+                    <p>Institution: Kathmandu University</p>
+                    <p>Year: 2081(graduation)</p>
+                </li>
+            </ul>
+        </div>
+    </section>
+
+    <section id="skills">
+        <h2>Personal-Skills</h2>
+        <div class="personal-skills">
+            <div class="oval-container">
+                <div class="skill">Leadership</div>
+            </div>
+            <div class="oval-container">
+                <div class="skill">Team Work</div>
+            </div>
+            <div class="oval-container">
+                <div class="skill">Time management</div>
+            </div>
+            <div class="oval-container">
+                <div class="skill">Public Speaking</div>
+            </div>
+            <div class="oval-container">
+                <div class="skill">Interpersonal Communication</div>
+            </div>
+        </div>
+
+        <div class="software-skills">
+            <h2>Software-Skills</h2>
+            <div class="oval-container">
+                <div class="skill">ArcGIS</div>
+            </div>
+            <div class="oval-container">
+                <div class="skill">Autocad</div>
+            </div>
+            <div class="oval-container">
+                <div class="skill">Canva</div>
+            </div>
+            <div class="oval-container">
+                <div class="skill">Anaconda</div>
+            </div>
+            <div class="oval-container">
+                <div class="skill">PgAdmin</div>
+            </div>
+            <div class="oval-container">
+                <div class="skill">Envi</div>
+            </div>
+        </div>
+    </section>
+
+    <section id="certifications" class="certifications-details">
+        <h3>Certifications / Awards:</h3>
+        <div class="certification-card">
+            <h4>Program Coordinator</h4>
+            <p>Worked as program coordinator in our annual event "NEPGEOM."</p>
+        </div>
+        <div class="certification-card">
+            <h4>Published Article</h4>
+            <p>Published article in the journal "JOURNAL ON GEOINFORMATICS".</p>
+            Read the article <a href="https://doi.org/10.3126/njg.v22i1.55130" target="_blank">here</a>.
+        </div>
+        <div class="certification-card">
+            <h4>Marketing Head</h4>
+            <p>Worked as marketing head in GEOSPACE magazine launch Volume VIII</p>
+        </div>
+    </section>
+
+    <section id="contact" class="contact-details">
+        <h2>Contact</h2>
+        <p>Email: <a href="mailto:prawalparajuli7@gmail.com">prawalparajuli7@gmail.com</a></p>
+        <p>Connect with me:</p>
+        <div class="social-icons">
+            <a href="https://www.facebook.com/prawal.parajuli.71?mibextid=ZbWKwL" target="_blank">
+                <img src="path-to-facebook-icon.png" alt="Facebook">
+            </a>
+            <a href="https://www.linkedin.com/in/prawal-parajuli-626840286?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app" target="_blank">
+                <img src="path-to-linkedin-icon.png" alt="LinkedIn">
+            </a>
+            <a href="https://www.instagram.com/prawalparajuli?igsh=aDNpcDR0OTh2MnV6" target="_blank">
+                <img src="path-to-instagram-icon.png" alt="Instagram">
+            </a>
+        </div>
+    </section>
+
+    <script>
+        function toggleSection(sectionId) {
+            var sections = document.querySelectorAll('section');
+            var certificationsDetails = document.querySelector('.certifications-details');
+            var contactDetails = document.querySelector('.contact-details');
+
+            sections.forEach(function (section) {
+                section.style.display = 'none';
+            });
+
+            var selectedSection = document.getElementById(sectionId);
+            selectedSection.style.display = 'flex';
+
+            // Toggle certifications-details and contact-details
+            certificationsDetails.style.display = (sectionId === 'certifications') ? 'flex' : 'none';
+            contactDetails.style.display = (sectionId === 'contact') ? 'flex' : 'none';
+        }
+    </script>
+</body>
+</html>
